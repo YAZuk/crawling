@@ -110,7 +110,7 @@ SELECTOR_BUTTON_MORE = '//div[contains(@class,"b-facet__block") ' \
                        'and ./div[contains(@data-name,"categoryFullTextSearch")]]' \
                        '//div[contains(@class,"js-search--more__wrapper")]' \
                        '//div[contains(@class,"b-search--more")]' \
-                       '//span[contains(@class,"b-link")]'
+                       '//span[contains(@class,"b-link") and contains(text(),"Показать еще")]'
 
 
 SELECTOR_IS_CHECKED_GROUPS = '//div[contains(@class,"b-facet__block") ' \

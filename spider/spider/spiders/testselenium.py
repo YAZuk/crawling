@@ -33,6 +33,7 @@ class KomusSpider(scrapy.Spider):
 
             if button_more:
                 button_more[0].click()
+                self.logger.warning(button_more)
             if groups:
                 groups[index].click()
                 index += 1
