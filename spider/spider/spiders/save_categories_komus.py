@@ -4,7 +4,10 @@ from spider.items import (
                             ItemCategory
                          )
 
-SELECTOR_LIST_CATEGORIES = '//a[@class="b-info__link--category"]'
+SELECTOR_LIST_CATEGORIES = '//div[contains(@class,"yCmsContentSlot") ' \
+                           'and ./div[contains(@class,"b-titleList--two")]]' \
+                           '//a[contains(@class,"b-info__link--category") ' \
+                           'or contains(@class,"b-account__item--label")]'
 
 
 class SpiderKomusCategories(scrapy.Spider):

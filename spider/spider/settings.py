@@ -71,8 +71,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    # 'spider.pipelines.ProductPipeline': 300,
-    'spider.pipelines.CategoryKomusPipeline': 800,
+    'spider.pipelines.ProductPipeline': 300,
+    # 'spider.pipelines.CategoryKomusPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -124,3 +124,6 @@ SELECTOR_PANEL_GROUPS_KOMUS = '//div[contains(@class,"yCmsContentSlot") ' \
                               'and ./div[contains(@class,"b-titleList--two")]]' \
                               '//a[contains(@class,"b-info__link--category") ' \
                               'or contains(@class,"b-account__item--label")]'
+
+
+SELECTOR_TAGS_KOMUS = '//ul[contains(@class,"tags")]'
