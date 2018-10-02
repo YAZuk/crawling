@@ -3,7 +3,7 @@ from selenium import webdriver
 from spider.settings import (
                             SELECTOR_BUTTON_MORE,
                             SELECTOR_LIST_GROUPS_KOMUS,
-                            PATH_TO_DRIVER
+                            PATH_TO_DRIVER, SELECTOR_PANEL_GROUPS_KOMUS
                         )
 
 
@@ -16,6 +16,8 @@ class KomusSpider(scrapy.Spider):
                     # 'https://www.komus.ru/search?text=ручка синяя'
                     # 'https://www.komus.ru/search?text=стол стекляный',
                     # 'https://www.komus.ru/search?text=бумага',
+                    # 'https://www.komus.ru/search?text=пакеты',
+                    # 'https://www.komus.ru/search?text=клей',
                 ]
 
     def __init__(self):
@@ -26,19 +28,28 @@ class KomusSpider(scrapy.Spider):
 
         index = 0
         while True:
-            groups = self.driver.find_elements_by_xpath(
-                SELECTOR_LIST_GROUPS_KOMUS
-            )
+            # слева панель с чекбоксами найденных групп
+            groups_check = self.driver.find_elements_by_xpath(SELECTOR_LIST_GROUPS_KOMUS)
+            # кнопка "Показать еще" если есть в панели найденных групп
             button_more = self.driver.find_elements_by_xpath(SELECTOR_BUTTON_MORE)
+            # если есть панель с категориями
+            groups_list = self.driver.find_elements_by_xpath(SELECTOR_PANEL_GROUPS_KOMUS)
 
-            if button_more:
-                button_more[0].click()
-                self.logger.warning(button_more)
-            if groups:
-                groups[index].click()
+            if groups_check:
+                if button_more:
+                    button_more[0].click()
+                groups_check[index].click()
                 index += 1
-                if index == len(groups):
+                if index == len(groups_check):
                     break
+            elif groups_list:
+                # self.logger.warning(len(groups_list))
+                self.logger.warning(groups_list)
+                # self.logger.warning(groups_list[0].text)
+                # self.logger.warning(groups_list[0].screenshot_as_png)
+                # self.logger.warning(groups_list[0].tag_name)
+                # self.logger.warning(dir(groups_list[0]))
+                break
             else:
                 break
 

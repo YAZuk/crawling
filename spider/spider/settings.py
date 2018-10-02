@@ -121,6 +121,6 @@ SELECTOR_IS_CHECKED_GROUPS = '//div[contains(@class,"b-facet__block") ' \
 
 
 SELECTOR_PANEL_GROUPS_KOMUS = '//div[contains(@class,"yCmsContentSlot") ' \
-                              'and ./div[contains(@class,"b-titleList--two")] ' \
-                              'and ./div[contains(@class,"clearfix")]]' \
-                              '//a[@class="b-info__link--category"]'
+                              'and ./div[contains(@class,"b-titleList--two")]]' \
+                              '//a[contains(@class,"b-info__link--category") ' \
+                              'or contains(@class,"b-account__item--label")]'
