@@ -34,15 +34,15 @@ class CategoryKomus(DeclarativeBase):
     url = Column('url', Text, nullable=True, unique=True)
 
 
-class CategoryYandexMarket(DeclarativeBase):
-    """
-        Описание таблицы Категории Яндекс-Маркет
-    """
-    __tablename__ = "yandex_market_categories"
-
-    id = Column(Integer, primary_key=True)
-    title = Column('title', Text)
-    url = Column('url', Text, nullable=True)
+# class CategoryYandexMarket(DeclarativeBase):
+#     """
+#         Описание таблицы Категории Яндекс-Маркет
+#     """
+#     __tablename__ = "yandex_market_categories"
+#
+#     id = Column(Integer, primary_key=True)
+#     title = Column('title', Text)
+#     url = Column('url', Text, nullable=True)
 
 
 class ProductKomus(DeclarativeBase):

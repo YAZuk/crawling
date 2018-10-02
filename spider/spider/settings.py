@@ -71,8 +71,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'spider.pipelines.ProductPipeline': 800,
-    # 'spider.pipelines.CategoryKomusPipeline': 300,
+    # 'spider.pipelines.ProductPipeline': 300,
+    'spider.pipelines.CategoryKomusPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

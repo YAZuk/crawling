@@ -6,7 +6,8 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from sqlalchemy.orm import sessionmaker
 import sqlalchemy.exc
-from .models import ProductKomus, CategoryKomus,db_connect, create_product_table
+from .models import ProductKomus, CategoryKomus, db_connect, create_product_table
+from .items import ItemProduct, ItemCategory
 
 
 class CategoryKomusPipeline(object):
@@ -22,6 +23,9 @@ class CategoryKomusPipeline(object):
         """
             Обработка item
         """
+        # if not isinstance(item, ItemCategory):
+        #     return
+
         session = self.Session()
         category = CategoryKomus(**item)
 
@@ -44,6 +48,8 @@ class ProductPipeline(object):
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
+        # if not isinstance(item, ItemProduct):
+        #     return
         """
         """
         session = self.Session()
