@@ -96,3 +96,31 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 # FEED_EXPORT_ENCODING = 'utf-8'
+
+PATH_TO_DRIVER = r'/usr/bin/geckodriver'
+
+SELECTOR_LIST_GROUPS_KOMUS = '//div[contains(@class,"b-facet__block") ' \
+                             'and ./div[contains(@data-name,"categoryFullTextSearch")]]' \
+                             '//div[contains(@class,"js-search--more__wrapper") and contains(@class,"facetValues") ' \
+                             'and contains(@class,"js-listHide")]' \
+                             '//label[contains(@class,"b-search__blockItem")]' \
+                             '//span[@class="b-checkbox__label"]'
+
+SELECTOR_BUTTON_MORE = '//div[contains(@class,"b-facet__block") ' \
+                       'and ./div[contains(@data-name,"categoryFullTextSearch")]]' \
+                       '//div[contains(@class,"js-search--more__wrapper")]' \
+                       '//div[contains(@class,"b-search--more")]' \
+                       '//span[contains(@class,"b-link")]'
+
+
+SELECTOR_IS_CHECKED_GROUPS = '//div[contains(@class,"b-facet__block") ' \
+                             'and ./div[contains(@data-name,"categoryFullTextSearch")]]' \
+                             '//div[contains(@class,"js-search--more__wrapper")]' \
+                             '//label[contains(@class,"b-search__blockItem")]' \
+                             '//input[contains(@class,"b-checkbox__input")]'
+
+
+SELECTOR_PANEL_GROUPS_KOMUS = '//div[contains(@class,"yCmsContentSlot") ' \
+                              'and ./div[contains(@class,"b-titleList--two")] ' \
+                              'and ./div[contains(@class,"clearfix")]]' \
+                              '//a[@class="b-info__link--category"]'
