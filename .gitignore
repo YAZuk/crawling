@@ -1,0 +1,7 @@
+.idea/
+*.pyc
+env/
+*.csv
+*.json
+*.log
+__pycache__
