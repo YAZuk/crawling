@@ -98,6 +98,7 @@ AUTOTHROTTLE_ENABLED = True
 # FEED_EXPORT_ENCODING = 'utf-8'
 
 PATH_TO_DRIVER = r'/usr/bin/geckodriver'
+# PATH_TO_DRIVER = r'/usr/bin/chromedriver'
 
 SELECTOR_LIST_GROUPS_KOMUS = '//div[contains(@class,"b-facet__block") ' \
                              'and ./div[contains(@data-name,"categoryFullTextSearch")]]' \

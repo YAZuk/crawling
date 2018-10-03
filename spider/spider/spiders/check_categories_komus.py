@@ -33,6 +33,7 @@ class KomusSpider(scrapy.Spider):
                     # 'https://www.komus.ru/search?text=пакеты',
                     # 'https://www.komus.ru/search?text=клей',
                     # 'https://www.komus.ru/search?text=ящик',
+                    # 'https://www.komus.ru/search?sort=relevance&q=&text=%D1%81%D1%82%D0%BE%D0%BB&q.categoryFullTextSearch.5.2=8106&q.categoryFullTextSearch.12.2=340&q.categoryFullTextSearch.22.2=4242&q.categoryFullTextSearch.31.2=15044&q.categoryFullTextSearch.41.2=9742'
                 ]
 
     visited_urls = []
@@ -51,7 +52,7 @@ class KomusSpider(scrapy.Spider):
             # button_more = self.driver.find_elements_by_xpath(SELECTOR_BUTTON_MORE_KOMUS)
             # groups_list = self.driver.find_elements_by_xpath(SELECTOR_PANEL_GROUPS_KOMUS)
             # tag_list = self.driver.find_elements_by_xpath(SELECTOR_TAGS_KOMUS)
-
+            #
             # if groups_check:
             #     if button_more:
             #         button_more[0].click()
