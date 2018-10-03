@@ -1,20 +1,17 @@
 import scrapy
 from selenium import webdriver
 from spider.settings import (
-                            SELECTOR_BUTTON_MORE,
+                            SELECTOR_BUTTON_MORE_KOMUS,
                             SELECTOR_LIST_GROUPS_KOMUS,
-                            PATH_TO_DRIVER, SELECTOR_PANEL_GROUPS_KOMUS, SELECTOR_TAGS_KOMUS
+                            PATH_TO_DRIVER, SELECTOR_PANEL_GROUPS_KOMUS, SELECTOR_TAGS_KOMUS,
+                            SELECTOR_PRODUCT_NAME_KOMUS, SELECTOR_PRODUCT_PRICE_KOMUS,
+                            SELECTOR_PRODUCT_NEXT_PAGES_KOMUS, SELECTOR_PRODUCT_LIST_KOMUS
                         )
 
 from urllib.parse import urljoin
 from spider.items import (
                             ItemProduct
                         )
-
-PRODUCT_NAME_SELECTOR = '//h1[@class="b-productName"]/text()'
-PRODUCT_PRICE_SELECTOR = '//span[@class="i-fs30 i-fwb"]/text()'
-PRODUCT_NEXT_PAGES_SELECTOR = '//a[contains(@class, "b-pageNumber__item") and not(contains(@class, "active"))]'
-PRODUCT_LIST_SELECTOR = '//a[@class="b-productList__item__descr--title"]/@href'
 
 
 class KomusSpider(scrapy.Spider):
@@ -46,7 +43,7 @@ class KomusSpider(scrapy.Spider):
             # слева панель с чекбоксами найденных групп
             groups_check = self.driver.find_elements_by_xpath(SELECTOR_LIST_GROUPS_KOMUS)
             # кнопка "Показать еще" если есть в панели найденных групп
-            button_more = self.driver.find_elements_by_xpath(SELECTOR_BUTTON_MORE)
+            button_more = self.driver.find_elements_by_xpath(SELECTOR_BUTTON_MORE_KOMUS)
             # если есть панель с категориями
             groups_list = self.driver.find_elements_by_xpath(SELECTOR_PANEL_GROUPS_KOMUS)
             # если есть панель с категориями
@@ -70,12 +67,12 @@ class KomusSpider(scrapy.Spider):
             #     break
             #
         # проходим по товарам на одной странице
-        for link in response.xpath(PRODUCT_LIST_SELECTOR):
+        for link in response.xpath(SELECTOR_PRODUCT_LIST_KOMUS):
             url = urljoin(response.url, link.extract())
             # парсим товар
             yield response.follow(url, callback=self.parse_product)
 
-        next_pages = self.driver.find_elements_by_xpath(PRODUCT_NEXT_PAGES_SELECTOR)
+        next_pages = self.driver.find_elements_by_xpath(SELECTOR_PRODUCT_NEXT_PAGES_KOMUS)
         next_page = next_pages[-1]
         next_page.click()
         yield response.follow(self.driver.current_url, callback=self.parse)
@@ -85,14 +82,14 @@ class KomusSpider(scrapy.Spider):
     def parse_product(self, response):
         item = ItemProduct()
         # название товара
-        title = response.xpath(PRODUCT_NAME_SELECTOR).extract()
+        title = response.xpath(SELECTOR_PRODUCT_NAME_KOMUS).extract()
         try:
             item['title'] = title[0]
         except IndexError:
             item['title'] = ''
 
         # цена товара
-        price = response.xpath(PRODUCT_PRICE_SELECTOR).extract()
+        price = response.xpath(SELECTOR_PRODUCT_PRICE_KOMUS).extract()
         item['url'] = response.url
 
         try:

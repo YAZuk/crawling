@@ -106,7 +106,7 @@ SELECTOR_LIST_GROUPS_KOMUS = '//div[contains(@class,"b-facet__block") ' \
                              '//label[contains(@class,"b-search__blockItem")]' \
                              '//span[@class="b-checkbox__label"]'
 
-SELECTOR_BUTTON_MORE = '//div[contains(@class,"b-facet__block") ' \
+SELECTOR_BUTTON_MORE_KOMUS = '//div[contains(@class,"b-facet__block") ' \
                        'and ./div[contains(@data-name,"categoryFullTextSearch")]]' \
                        '//div[contains(@class,"js-search--more__wrapper")]' \
                        '//div[contains(@class,"b-search--more")]' \
@@ -127,3 +127,8 @@ SELECTOR_PANEL_GROUPS_KOMUS = '//div[contains(@class,"yCmsContentSlot") ' \
 
 
 SELECTOR_TAGS_KOMUS = '//ul[contains(@class,"tags")]'
+
+SELECTOR_PRODUCT_NAME_KOMUS = '//h1[@class="b-productName"]/text()'
+SELECTOR_PRODUCT_PRICE_KOMUS = '//span[@class="i-fs30 i-fwb"]/text()'
+SELECTOR_PRODUCT_NEXT_PAGES_KOMUS = '//a[contains(@class, "b-pageNumber__item") and not(contains(@class, "active"))]'
+SELECTOR_PRODUCT_LIST_KOMUS = '//a[@class="b-productList__item__descr--title"]/@href'
