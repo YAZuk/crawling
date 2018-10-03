@@ -58,10 +58,7 @@ class ProductPipeline(object):
         try:
             session.add(product)
             session.commit()
-        except:
-            session.rollback()
-            raise
-        finally:
-            session.close()
+        except sqlalchemy.exc.IntegrityError:
+            pass
 
         return item

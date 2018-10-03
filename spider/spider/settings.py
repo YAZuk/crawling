@@ -130,5 +130,12 @@ SELECTOR_TAGS_KOMUS = '//ul[contains(@class,"tags")]'
 
 SELECTOR_PRODUCT_NAME_KOMUS = '//h1[@class="b-productName"]/text()'
 SELECTOR_PRODUCT_PRICE_KOMUS = '//span[@class="i-fs30 i-fwb"]/text()'
-SELECTOR_PRODUCT_NEXT_PAGES_KOMUS = '//a[contains(@class, "b-pageNumber__item") and not(contains(@class, "active"))]'
+SELECTOR_PRODUCT_NEXT_PAGES_KOMUS = '//div[@class="b-productList__controls"]' \
+                                    '//ul//li//a[contains(@class, "b-pageNumber__item") ' \
+                                    'and not(contains(@class, "b-pageNumber__item--arrow")) ' \
+                                    'and not(contains(@class, "b-pageNumber__item--none"))]'
 SELECTOR_PRODUCT_LIST_KOMUS = '//a[@class="b-productList__item__descr--title"]/@href'
+
+'and not(contains(@class, "active"))  '
+
+

@@ -53,7 +53,7 @@ class ProductKomus(DeclarativeBase):
 
     id = Column(Integer, primary_key=True)
     title = Column('title', Text)
-    url = Column('url', Text, nullable=True)
+    url = Column('url', Text, nullable=True, unique=True)
     price = Column('price', Float, nullable=True)
     # category_id = Column('category_id', Integer,
     #                      ForeignKey("komus_categories.id"), nullable=False)

@@ -1,6 +1,7 @@
 import scrapy
 from selenium import webdriver
 from urllib.parse import urljoin
+# from itertools import izip, cycle, tee
 from spider.settings import (
                             SELECTOR_BUTTON_MORE_KOMUS,
                             SELECTOR_LIST_GROUPS_KOMUS,
@@ -45,29 +46,34 @@ class KomusSpider(scrapy.Spider):
         if response.url not in self.visited_urls:
             self.driver.get(response.url)
             self.visited_urls.append(response.url)
-            index = 0
-            groups_check = self.driver.find_elements_by_xpath(SELECTOR_LIST_GROUPS_KOMUS)
-            button_more = self.driver.find_elements_by_xpath(SELECTOR_BUTTON_MORE_KOMUS)
-            groups_list = self.driver.find_elements_by_xpath(SELECTOR_PANEL_GROUPS_KOMUS)
-            tag_list = self.driver.find_elements_by_xpath(SELECTOR_TAGS_KOMUS)
+            # index = 0
+            # groups_check = self.driver.find_elements_by_xpath(SELECTOR_LIST_GROUPS_KOMUS)
+            # button_more = self.driver.find_elements_by_xpath(SELECTOR_BUTTON_MORE_KOMUS)
+            # groups_list = self.driver.find_elements_by_xpath(SELECTOR_PANEL_GROUPS_KOMUS)
+            # tag_list = self.driver.find_elements_by_xpath(SELECTOR_TAGS_KOMUS)
 
-            if groups_check:
-                if button_more:
-                    button_more[0].click()
-                groups_check[index].click()
+            # if groups_check:
+            #     if button_more:
+            #         button_more[0].click()
+            #     groups_check[index].click()
 
-            # проходим по товарам на одной странице
             for link in response.xpath(SELECTOR_PRODUCT_LIST_KOMUS):
                 url = urljoin(response.url, link.extract())
-                # парсим товар
                 yield response.follow(url, callback=self.parse_product)
 
             next_pages = self.driver.find_elements_by_xpath(SELECTOR_PRODUCT_NEXT_PAGES_KOMUS)
+            a = iter(next_pages)
+            for i in a:
+                if "active" in i.get_attribute("class"):
+                    next_url = next(a)
+                    url = next_url.get_attribute("href")
+                    # next_url.click()
+                    # yield response.follow(self.driver.current_url, callback=self.parse)
+                    # next_url.click()
+                    yield response.follow(url, callback=self.parse)
 
-            if next_pages:
-                next_page = next_pages[-1]
-                next_page.click()
-                yield response.follow(self.driver.current_url, callback=self.parse)
+                    # break
+
             # self.driver.close()
 
     def parse_product(self, response):
