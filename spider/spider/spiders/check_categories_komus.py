@@ -13,7 +13,7 @@ from spider.items import (
 
 PRODUCT_NAME_SELECTOR = '//h1[@class="b-productName"]/text()'
 PRODUCT_PRICE_SELECTOR = '//span[@class="i-fs30 i-fwb"]/text()'
-PRODUCT_NEXT_PAGES_SELECTOR = '//a[contains(@class, "b-pageNumber__item") and not(contains(@class, "active"))]/@href'
+PRODUCT_NEXT_PAGES_SELECTOR = '//a[contains(@class, "b-pageNumber__item") and not(contains(@class, "active"))]'
 PRODUCT_LIST_SELECTOR = '//a[@class="b-productList__item__descr--title"]/@href'
 
 
@@ -21,8 +21,9 @@ class KomusSpider(scrapy.Spider):
     name = "komus_spider"
     allowed_domains = ['komus.ru']
     start_urls = [
-                    'https://www.komus.ru/search?text=стол',
-                    # 'https://www.komus.ru/search?text=ножницы',
+                    # 'https://www.komus.ru/search?text=стол',
+                    'https://www.komus.ru/search?text=ножницы',
+                    # 'https://www.komus.ru/search?text=скрепки',
                     # 'https://www.komus.ru/search?text=ручка синяя'
                     # 'https://www.komus.ru/search?text=стол стекляный',
                     # 'https://www.komus.ru/search?text=бумага',
@@ -56,35 +57,28 @@ class KomusSpider(scrapy.Spider):
                     button_more[0].click()
                 groups_check[index].click()
                 index += 1
-                if index == len(groups_check):
+                if index == 3:
                     self.is_checks = False
                     break
-            elif groups_list:
-                self.logger.warning(groups_list)
-                break
-            elif tag_list:
-                self.logger.warning(tag_list)
-                break
-            else:
-                break
-
-            # проходим по товарам на одной странице
+            # elif groups_list:
+            #     self.logger.warning(groups_list)
+            #     break
+            # elif tag_list:
+            #     self.logger.warning(tag_list)
+            #     break
+            # else:
+            #     break
+            #
+        # проходим по товарам на одной странице
         for link in response.xpath(PRODUCT_LIST_SELECTOR):
             url = urljoin(response.url, link.extract())
-
             # парсим товар
             yield response.follow(url, callback=self.parse_product)
 
-        # находим ссылки на другие страницы с этим товаром
-        next_pages = response.xpath(PRODUCT_NEXT_PAGES_SELECTOR).extract()
-        self.logger.warning("-----------------%s", next_pages)
+        next_pages = self.driver.find_elements_by_xpath(PRODUCT_NEXT_PAGES_SELECTOR)
         next_page = next_pages[-1]
-
-        next_page_url = urljoin(response.url+'/', next_page)
-        # идем по ссылке на следущую страницу
-        # self.driver.get(next_page_url)
-        yield response.follow(next_page_url, callback=self.parse)
-
+        next_page.click()
+        yield response.follow(self.driver.current_url, callback=self.parse)
         # self.driver.close()
 
 
