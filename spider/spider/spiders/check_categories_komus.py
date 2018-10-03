@@ -3,9 +3,13 @@ from selenium import webdriver
 from spider.settings import (
                             SELECTOR_BUTTON_MORE_KOMUS,
                             SELECTOR_LIST_GROUPS_KOMUS,
-                            PATH_TO_DRIVER, SELECTOR_PANEL_GROUPS_KOMUS, SELECTOR_TAGS_KOMUS,
-                            SELECTOR_PRODUCT_NAME_KOMUS, SELECTOR_PRODUCT_PRICE_KOMUS,
-                            SELECTOR_PRODUCT_NEXT_PAGES_KOMUS, SELECTOR_PRODUCT_LIST_KOMUS
+                            PATH_TO_DRIVER,
+                            SELECTOR_PANEL_GROUPS_KOMUS,
+                            SELECTOR_TAGS_KOMUS,
+                            SELECTOR_PRODUCT_NAME_KOMUS,
+                            SELECTOR_PRODUCT_PRICE_KOMUS,
+                            SELECTOR_PRODUCT_NEXT_PAGES_KOMUS,
+                            SELECTOR_PRODUCT_LIST_KOMUS
                         )
 
 from urllib.parse import urljoin
@@ -18,8 +22,8 @@ class KomusSpider(scrapy.Spider):
     name = "komus_spider"
     allowed_domains = ['komus.ru']
     start_urls = [
-                    # 'https://www.komus.ru/search?text=стол',
-                    'https://www.komus.ru/search?text=ножницы',
+                    'https://www.komus.ru/search?text=стол',
+                    # 'https://www.komus.ru/search?text=ножницы',
                     # 'https://www.komus.ru/search?text=скрепки',
                     # 'https://www.komus.ru/search?text=ручка синяя'
                     # 'https://www.komus.ru/search?text=стол стекляный',
@@ -77,7 +81,6 @@ class KomusSpider(scrapy.Spider):
         next_page.click()
         yield response.follow(self.driver.current_url, callback=self.parse)
         # self.driver.close()
-
 
     def parse_product(self, response):
         item = ItemProduct()
